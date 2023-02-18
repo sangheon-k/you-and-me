@@ -11,5 +11,10 @@ server.listen(8080, () => {
 })
 
 wss.on('connection', (socket) => {
-  console.log(socket)
+  console.log('Connected to Browser ✅');
+  socket.on('close', () => console.log('Disconnected From the Browser ❌'))
+  socket.on('message', (message) => {
+    console.log(message.toString('utf-8'));
+  })
+  socket.send("hello!!")
 })
