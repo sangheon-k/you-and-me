@@ -8,6 +8,13 @@ const MainPage = () => {
   const socketUrl = 'ws://localhost:8080';
   let ws = useRef(null);
 
+  /**
+   * TODO
+   * create Websocket call custom hook
+   * edit nickname with server
+   * change to socket.io
+   */
+
   useEffect(() => {
     if (!ws.current) {
       ws.current = new WebSocket(socketUrl);

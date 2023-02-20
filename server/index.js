@@ -30,3 +30,10 @@ wss.on('connection', (socket) => {
   })
   socket.send(`hello!! ${socket.nickname}`)
 }) 
+
+/*
+  TODO
+  메세지 데이터 저장 및 새로고침시 메세지 배열 보내기
+  닉네임 저장
+  소켓 io 사용
+*/ 
