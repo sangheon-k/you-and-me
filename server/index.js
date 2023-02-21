@@ -1,35 +1,34 @@
 const express = require('express')
 const http = require('http')
-const WebSocket = require('ws')
+const socketIO = require('socket.io')
+const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
-const wss = new WebSocket.Server({ server })
+const PORT = 8080;
+const io = socketIO(server, {
+  cors: {
+		origin: "http://localhost:3000",
+		methods: ["GET", "POST"]
+	}
+});
 
-server.listen(8080, () => {
-  console.log('Listening on http:localhost:8080');
+app.use(cors());
+
+server.listen(PORT, () => {
+  console.log(`Listening on http://localhost:${PORT}`);
 })
 
-const sockets = [];
+io.on('connection', socket => {
+  console.log("Connection to Client 🔥");
 
-wss.on('connection', (socket) => {
-  sockets.push(socket);
-  socket["nickname"] = 'Anon';
-  console.log('Connected to Browser ✅');
-  socket.on('close', () => console.log('Disconnected From the Browser ❌'))
-  socket.on('message', (req) => {
-    const message = JSON.parse(req)
-    switch (message.type) {
-      case "message":
-        sockets.forEach(aSocket => aSocket.send(`${socket.nickname}: ${message.payload}`))
-        break;
-      case "nickname":
-        socket["nickname"] = message.payload
-        break;
-    }
+  socket.on("enterRoom", (roomName, done) => {
+    socket.join(roomName);
+    done(roomName);
+    socket.to(roomName).emit('welcome');
   })
-  socket.send(`hello!! ${socket.nickname}`)
-}) 
+
+})
 
 /*
   TODO
