@@ -9,3 +9,10 @@ livecam & chat with WebRTC and WebSocket
 3. 닉네임 지정 및 구분 string to Object / Object to String
 4. socket.io 라이브러리 사용
 5. 방 만들기
+6. 채팅방 입장시 입장, 퇴장시 방 내부에 알림 메세지 보내기
+7. 채팅방 리스트 메인에서 보여주기
+
+# Thinking
+
+- 클라이언트쪽 채팅 기능이 하나의 페이지에 구현되어있다. 컴포넌트 단위로 분리해야겠다.
+-
