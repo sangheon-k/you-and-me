@@ -8,6 +8,10 @@ const FormNickName = () => {
 
   const handleNickSave = (e) => {
     e.preventDefault();
+    if (nick === '') {
+      alert('닉네임을 입력해주세요!');
+      return;
+    }
     isSaved
       ? setIsSaved(false)
       : (socket.emit('nickname', nick), setIsSaved(true));
