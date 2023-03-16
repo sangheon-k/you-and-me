@@ -6,7 +6,7 @@ const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
-const PORT = 8080;
+const STATIC_PORT = 8080;
 
 const ioServer = new Server(server, {
   cors: {
@@ -22,8 +22,8 @@ instrument(ioServer, {
 
 app.use(cors());
 
-server.listen(PORT, () => {
-  console.log(`Listening on http://localhost:${PORT}`);
+server.listen(process.env.PORT || STATIC_PORT, () => {
+  console.log(`Listening on http://localhost:${PORT || STATIC_PORT}`);
 });
 
 function countPublicRooms() {
