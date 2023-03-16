@@ -3,13 +3,14 @@ import Room from '@/src/components/Chat/Room/Room';
 import FormNickName from './FormNickName';
 import FormEnterRoom from './FormEnterRoom';
 import { useSocket } from '@/src/hooks/useSocket';
+import { ToastError } from '@/src/utils/toast';
 
 const ChatPage = () => {
   const [roomName, setRoomName] = useState('');
   const [enteredRoomName, setEnteredRoomName] = useState('');
   const [isEnterRoom, setIsEnterRoom] = useState(false);
 
-  const { socket } = useSocket();
+  const { socket, isConnected } = useSocket();
 
   const moveToRoom = (roomName) => {
     setIsEnterRoom(true);
@@ -17,6 +18,11 @@ const ChatPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!isConnected) {
+      ToastError('서버 연결을 다시 확인해주세요.');
+      return;
+    }
+
     setEnteredRoomName(roomName);
     socket.emit('enterRoom', roomName, moveToRoom);
     setRoomName('');
