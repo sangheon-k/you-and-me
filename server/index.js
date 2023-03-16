@@ -23,7 +23,9 @@ instrument(ioServer, {
 app.use(cors());
 
 server.listen(process.env.PORT || STATIC_PORT, () => {
-  console.log(`Listening on http://localhost:${PORT || STATIC_PORT}`);
+  console.log(
+    `Listening on http://localhost:${process.env.PORT || STATIC_PORT}`
+  );
 });
 
 function countPublicRooms() {
