@@ -10,7 +10,11 @@ const STATIC_PORT = 8080;
 
 const ioServer = new Server(server, {
   cors: {
-    origin: ['http://localhost:3000', 'https://admin.socket.io'],
+    origin: [
+      'http://localhost:3000',
+      'https://you-and-me-orpin.vercel.app/',
+      'https://admin.socket.io',
+    ],
     credentials: true,
   },
 });
