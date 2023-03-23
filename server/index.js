@@ -12,7 +12,7 @@ const ioServer = new Server(server, {
   cors: {
     origin: [
       'http://localhost:3000',
-      'https://you-and-me-orpin.vercel.app/',
+      'https://you-and-me-seven.vercel.app',
       'https://admin.socket.io',
     ],
     credentials: true,
