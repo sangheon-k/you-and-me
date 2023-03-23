@@ -7,7 +7,7 @@ export default function Seo() {
       <meta name='viewport' content='width=device-width, initial-scale=1' />
       <meta property='og:type' content='website' />
       <meta property='og:url' content='https://you-and-me-seven.vercel.app/' />
-      <meta property='og:title' content='Chat Room' />
+      <meta property='og:title' content='RealTime Chat' />
       <meta
         property='og:image'
         content='https://user-images.githubusercontent.com/117249829/227150001-44959fc5-dab4-445d-afd1-d59f854f16a2.png'
