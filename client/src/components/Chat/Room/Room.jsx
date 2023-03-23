@@ -47,7 +47,11 @@ const Room = ({ enteredRoomName }) => {
           type='text'
           name='message'
           onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && handleSubmit(e)}
+          onKeyDown={(e) =>
+            e.key === 'Enter' &&
+            e.nativeEvent.isComposing === false &&
+            handleSubmit(e)
+          }
           value={message}
         />
         <button type='submit' onClick={handleSubmit}>
