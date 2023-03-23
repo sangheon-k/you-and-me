@@ -19,7 +19,7 @@ export default function Seo() {
       <meta property='og:image:height' content='630' />
 
       <link rel='icon' href='/favicon.ico' />
-      <title>ChatRoom</title>
+      <title>RealTime-Chat</title>
     </Head>
   );
 }
