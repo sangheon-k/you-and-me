@@ -29,7 +29,7 @@ const ChatPage = () => {
   };
 
   return (
-    <div className='p-6 bg-white rounded-xl '>
+    <div className='p-6 bg-white rounded-xl min-w-[360px]'>
       <h2 className='text-3xl font-bold text-center'>Chat Room</h2>
       {!isEnterRoom && (
         <form action='' onSubmit={handleSubmit} className='pt-6 text-center'>
