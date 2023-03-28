@@ -1,9 +1,10 @@
+import React, { useEffect, useRef, useState } from 'react';
 import { useSocket } from '@/src/hooks/useSocket';
-import React, { useEffect, useState } from 'react';
 
 const Room = ({ enteredRoomName }) => {
   const [message, setMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
+  const messageListContainerRef = useRef();
   const { socket } = useSocket();
 
   useEffect(() => {
@@ -26,6 +27,11 @@ const Room = ({ enteredRoomName }) => {
     };
   }, []);
 
+  useEffect(() => {
+    messageListContainerRef.current.scrollTop =
+      messageListContainerRef.current.scrollHeight;
+  }, [messageList]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     socket.emit('newMessage', message, enteredRoomName, () => {
@@ -37,7 +43,10 @@ const Room = ({ enteredRoomName }) => {
   return (
     <div>
       <h1>Room {enteredRoomName}</h1>
-      <div className=' overflow-y-scroll h-[600px] py-3'>
+      <div
+        className='overflow-y-scroll h-[600px] py-3'
+        ref={messageListContainerRef}
+      >
         {messageList?.map((item, index) => {
           return <div key={index}>{item}</div>;
         })}
