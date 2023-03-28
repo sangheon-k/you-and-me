@@ -29,6 +29,7 @@ const FormNickName = () => {
 
   const toggleSaveNickName = () => {
     dispatch(saveNickName(!isSavedNickName));
+    socket.emit('nickname', nickname);
   };
 
   return (
