@@ -57,15 +57,29 @@ ioServer.on('connect', (socket) => {
   socket.on('enterRoom', (roomName, done) => {
     socket.join(roomName);
     done(roomName);
-    socket
-      .to(roomName)
-      .emit('welcome', socket.nickname, countPeopleInRoom(roomName));
+    socket.to(roomName).emit(
+      'enterRoom',
+      {
+        type: 'join',
+        nickname: socket.nickname,
+        message: socket.nickname + 'join!!',
+      },
+      countPeopleInRoom(roomName)
+    );
     ioServer.sockets.emit('roomListChange', countPublicRooms());
   });
 
   socket.on('disconnecting', () => {
     socket.rooms.forEach((room) =>
-      socket.to(room).emit('bye', socket.nickname, countPeopleInRoom(room) - 1)
+      socket.to(room).emit(
+        'leftRoom',
+        {
+          type: 'left',
+          nickname: socket.nickname,
+          message: socket.nickname + 'left this room ㅠㅠ',
+        },
+        countPeopleInRoom(room) - 1
+      )
     );
   });
 
@@ -74,7 +88,13 @@ ioServer.on('connect', (socket) => {
   });
 
   socket.on('newMessage', (message, room, done) => {
-    socket.to(room).emit('newMessage', `${socket.nickname}: ${message}`);
+    socket
+      .to(room)
+      .emit('newMessage', {
+        type: 'message',
+        nickname: socket.nickname,
+        message: message,
+      });
     done();
   });
 
