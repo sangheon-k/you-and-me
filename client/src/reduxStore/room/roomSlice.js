@@ -1,23 +1,30 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  nickName: '',
-  roomName: '',
+  nickname: {
+    value: '',
+    isSaved: false,
+  },
+  roomname: '',
 };
 
 export const counterSlice = createSlice({
   name: 'room',
   initialState,
   reducers: {
+    changeNickName: (state, action) => {
+      state.nickname.value = action.payload;
+    },
     saveNickName: (state, action) => {
-      state.nickName = action.payload;
+      state.nickname.isSaved = action.payload;
     },
     saveRoomName: (state, action) => {
-      state.roomName = action.payload;
+      state.roomname = action.payload;
     },
   },
 });
 
-export const { saveNickName, saveRoomName } = counterSlice.actions;
+export const { changeNickName, saveNickName, saveRoomName } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;

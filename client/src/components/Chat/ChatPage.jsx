@@ -9,7 +9,6 @@ const ChatPage = () => {
   const [roomName, setRoomName] = useState('');
   const [enteredRoomName, setEnteredRoomName] = useState('');
   const [isEnterRoom, setIsEnterRoom] = useState(false);
-
   const { socket, isConnected } = useSocket();
 
   const moveToRoom = (roomName) => {
