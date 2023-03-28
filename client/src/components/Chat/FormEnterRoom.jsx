@@ -1,16 +1,19 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveRoomName } from '@/src/reduxStore/room/roomSlice';
 
-const FormEnterRoom = ({ roomName, setRoomName }) => {
-  const enterRoomRef = useRef();
+const FormEnterRoom = () => {
+  const dispatch = useDispatch();
+  const roomName = useSelector((state) => state.room.roomname);
   const isSavedNickName = useSelector((state) => state.room.nickname.isSaved);
+  const enterRoomRef = useRef();
 
   useEffect(() => {
     isSavedNickName && enterRoomRef.current.focus();
   }, [isSavedNickName]);
 
   const handleChangeRoomName = (e) => {
-    setRoomName(e.target.value);
+    dispatch(saveRoomName(e.target.value));
   };
 
   return (
@@ -24,6 +27,12 @@ const FormEnterRoom = ({ roomName, setRoomName }) => {
         required
         ref={enterRoomRef}
       />
+      <button
+        type='submit'
+        className='block px-6 py-3 mt-6 text-white bg-blue-500 rounded-lg shadow-lg md:inline-block'
+      >
+        Enter Room
+      </button>
     </div>
   );
 };

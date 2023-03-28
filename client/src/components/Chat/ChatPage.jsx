@@ -1,19 +1,17 @@
-import React, { useState } from 'react';
-import Room from '@/src/components/Chat/Room/Room';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { ToastError } from '@/src/utils/toast';
+import { useSocket } from '@/src/hooks/useSocket';
+import { enterRoom } from '@/src/reduxStore/room/roomSlice';
 import FormNickName from './FormNickName';
 import FormEnterRoom from './FormEnterRoom';
-import { useSocket } from '@/src/hooks/useSocket';
-import { ToastError } from '@/src/utils/toast';
+import Room from '@/src/components/Chat/Room/Room';
 
 const ChatPage = () => {
-  const [roomName, setRoomName] = useState('');
-  const [enteredRoomName, setEnteredRoomName] = useState('');
-  const [isEnterRoom, setIsEnterRoom] = useState(false);
+  const dispatch = useDispatch();
+  const roomName = useSelector((state) => state.room.roomname);
+  const isEnteredRoom = useSelector((state) => state.room.isEnteredRoom);
   const { socket, isConnected } = useSocket();
-
-  const moveToRoom = (roomName) => {
-    setIsEnterRoom(true);
-  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,29 +19,24 @@ const ChatPage = () => {
       ToastError('서버 연결을 다시 확인해주세요.');
       return;
     }
-
-    setEnteredRoomName(roomName);
     socket.emit('enterRoom', roomName, moveToRoom);
-    setRoomName('');
+  };
+
+  const moveToRoom = () => {
+    dispatch(enterRoom(!isEnteredRoom));
   };
 
   return (
-    <div className='p-6 bg-white rounded-xl min-w-[360px]'>
-      <h2 className='text-3xl font-bold text-center'>Chat Room</h2>
-      {!isEnterRoom && (
-        <form action='' onSubmit={handleSubmit} className='pt-6 text-center'>
-          <FormNickName />
-          <FormEnterRoom roomName={roomName} setRoomName={setRoomName} />
-          <button
-            type='submit'
-            className='block px-6 py-3 mt-6 text-white bg-blue-500 rounded-lg shadow-lg md:inline-block'
-          >
-            Enter Room
-          </button>
-        </form>
+    <div className='bg-white rounded-xl min-w-[360px]'>
+      {!isEnteredRoom && (
+        <div className='p-6'>
+          <form action='' onSubmit={handleSubmit} className='pt-6 text-center'>
+            <FormNickName />
+            <FormEnterRoom />
+          </form>
+        </div>
       )}
-      {isEnterRoom && <Room enteredRoomName={enteredRoomName} />}
-      {/* <RoomTest /> */}
+      {isEnteredRoom && <Room />}
     </div>
   );
 };
