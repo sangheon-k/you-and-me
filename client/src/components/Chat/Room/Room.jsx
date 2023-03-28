@@ -7,24 +7,25 @@ const Room = () => {
   const [messageList, setMessageList] = useState([]);
   const messageListContainerRef = useRef();
   const roomName = useSelector((state) => state.room.roomname);
+  const nickname = useSelector((state) => state.room.nickname);
   const { socket } = useSocket();
 
   useEffect(() => {
-    socket.on('welcome', (user) => {
-      setMessageList((prev) => [...prev, `${user} join!`]);
+    socket.on('enterRoom', (message) => {
+      setMessageList((prev) => [...prev, message]);
     });
 
-    socket.on('bye', (user) => {
-      setMessageList((prev) => [...prev, `${user} left this room ㅠㅠ`]);
+    socket.on('leftRoom', (message) => {
+      setMessageList((prev) => [...prev, message]);
     });
 
     socket.on('newMessage', (message) => {
-      setMessageList((prev) => [...prev, message]); // 남이 보낸 메시지 리스트에 추가
+      setMessageList((prev) => [...prev, message]);
     });
 
     return () => {
-      socket.off('welcome');
-      socket.off('bye');
+      socket.off('enterRoom');
+      socket.off('leftRoom');
       socket.off('newMessage');
     };
   }, []);
@@ -38,23 +39,44 @@ const Room = () => {
     e.preventDefault();
     if (message !== '') {
       socket.emit('newMessage', message, roomName, () => {
-        setMessageList((prev) => [...prev, `You : ${message}`]); // 내가 보낸 메시지 리스트에 추가
+        setMessageList((prev) => [
+          ...prev,
+          { type: 'message', nickname, message },
+        ]);
         setMessage('');
       });
     }
   };
 
   return (
-    <div>
-      <h2 className='px-6 pt-6 pb-4 text-xl font-bold shadow-sm'>
-        Chatting Room : {roomName}
+    <div className='w-[1000px]'>
+      <h2 className='flex justify-between px-6 pt-6 pb-4 text-xl font-bold shadow-sm'>
+        <span>Chatting Room : {roomName}</span>
       </h2>
       <div
-        className='overflow-y-scroll h-[600px] mb-4 px-6 pt-4'
+        className='flex flex-col overflow-y-auto space-y-3 h-[600px] mb-4 px-6 pt-4'
         ref={messageListContainerRef}
       >
         {messageList?.map((item, index) => {
-          return <div key={index}>{item}</div>;
+          const isMyMessage = item.nickname === nickname;
+          return (
+            <div
+              key={index}
+              className={`flex ${
+                isMyMessage ? 'justify-end' : 'justify-start'
+              }`}
+            >
+              <span
+                className={`max-w-xs px-4 py-2 rounded-lg inline-block break-all ${
+                  isMyMessage
+                    ? 'rounded-br-none bg-blue-600 text-white'
+                    : 'rounded-bl-none bg-gray-300 text-gray-600'
+                }`}
+              >
+                {item.message}
+              </span>
+            </div>
+          );
         })}
       </div>
       <div className='px-6 pb-6'>
