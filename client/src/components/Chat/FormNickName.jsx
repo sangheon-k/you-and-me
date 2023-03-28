@@ -15,7 +15,6 @@ const FormNickName = () => {
   }, [isSavedNickName]);
 
   const handleChangeNickName = (e) => {
-    console.log(e.target.value);
     dispatch(changeNickName(e.target.value));
   };
 
