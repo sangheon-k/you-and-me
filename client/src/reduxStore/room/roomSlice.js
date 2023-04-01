@@ -6,6 +6,7 @@ const initialState = {
     isSaved: false,
   },
   roomname: '',
+  totalPeopleNum: 0,
   isEnteredRoom: false,
 };
 
@@ -25,10 +26,18 @@ export const counterSlice = createSlice({
     enterRoom: (state, action) => {
       state.isEnteredRoom = action.payload;
     },
+    saveCountPeople: (state, action) => {
+      state.totalPeopleNum = action.payload;
+    },
   },
 });
 
-export const { changeNickName, saveNickName, saveRoomName, enterRoom } =
-  counterSlice.actions;
+export const {
+  changeNickName,
+  saveNickName,
+  saveRoomName,
+  enterRoom,
+  saveCountPeople,
+} = counterSlice.actions;
 
 export default counterSlice.reducer;

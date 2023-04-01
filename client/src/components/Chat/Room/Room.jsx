@@ -1,22 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSocket } from '@/src/hooks/useSocket';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { saveCountPeople } from '@/src/reduxStore/room/roomSlice';
 
 const Room = () => {
+  const dispatch = useDispatch();
   const [message, setMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
   const messageListContainerRef = useRef();
   const roomName = useSelector((state) => state.room.roomname);
   const nickname = useSelector((state) => state.room.nickname);
+  const totalPeopleNum = useSelector((state) => state.room.totalPeopleNum);
   const { socket } = useSocket();
 
   useEffect(() => {
-    socket.on('enterRoom', (message) => {
+    socket.on('enterRoom', (message, countPeople) => {
+      console.log('enterRoom', countPeople);
       setMessageList((prev) => [...prev, message]);
+      dispatch(saveCountPeople(countPeople));
     });
 
-    socket.on('leftRoom', (message) => {
+    socket.on('leftRoom', (message, countPeople) => {
+      console.log('leftRoom', countPeople);
       setMessageList((prev) => [...prev, message]);
+      dispatch(saveCountPeople(countPeople));
     });
 
     socket.on('newMessage', (message) => {
@@ -49,9 +56,10 @@ const Room = () => {
   };
 
   return (
-    <div className='w-[1000px]'>
+    <div className=''>
       <h2 className='flex justify-between px-6 pt-6 pb-4 text-xl font-bold shadow-sm'>
         <span>Chatting Room : {roomName}</span>
+        <span>{totalPeopleNum}</span>
       </h2>
       <div
         className='flex flex-col overflow-y-auto space-y-3 h-[600px] mb-4 px-6 pt-4'
@@ -79,7 +87,7 @@ const Room = () => {
           );
         })}
       </div>
-      <div className='px-6 pb-6'>
+      <div className='absolute bottom-0 p-6 bg-white'>
         <form
           action='#none'
           className='flex gap-4'
