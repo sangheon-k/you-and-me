@@ -48,7 +48,7 @@ const Room = () => {
       socket.emit('newMessage', message, roomName, () => {
         setMessageList((prev) => [
           ...prev,
-          { type: 'message', nickname, message },
+          { type: 'message', nickname: nickname.value, message },
         ]);
         setMessage('');
       });
@@ -69,25 +69,6 @@ const Room = () => {
           const isMyMessage = item.nickname === nickname;
           console.log(item);
           return (
-            // <div
-            //   key={index}
-            //   className={`${isMyMessage ? 'justify-end' : 'justify-start'}`}
-            // >
-            //   <span
-            //     className={`block ${isMyMessage ? 'text-right' : 'text-left'}`}
-            //   >
-            //     {isMyMessage ? item.nickname.value : item.nickname}
-            //   </span>
-            //   <span
-            //     className={`max-w-xs px-4 py-2 rounded-lg inline-block break-all ${
-            //       isMyMessage
-            //         ? 'rounded-br-none bg-blue-600 text-white'
-            //         : 'rounded-bl-none bg-gray-300 text-gray-600'
-            //     }`}
-            //   >
-            //     {item.message}
-            //   </span>
-            // </div>
             <div
               key={index}
               className={`flex flex-col ${
