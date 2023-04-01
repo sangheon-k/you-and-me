@@ -57,7 +57,7 @@ ioServer.on('connect', (socket) => {
   socket.on('enterRoom', (roomName, done) => {
     socket.join(roomName);
     done(roomName);
-    socket.to(roomName).emit(
+    ioServer.sockets.emit(
       'enterRoom',
       {
         type: 'join',
@@ -88,13 +88,11 @@ ioServer.on('connect', (socket) => {
   });
 
   socket.on('newMessage', (message, room, done) => {
-    socket
-      .to(room)
-      .emit('newMessage', {
-        type: 'message',
-        nickname: socket.nickname,
-        message: message,
-      });
+    socket.to(room).emit('newMessage', {
+      type: 'message',
+      nickname: socket.nickname,
+      message: message,
+    });
     done();
   });
 
