@@ -67,7 +67,6 @@ const Room = () => {
       >
         {messageList?.map((item, index) => {
           const isMyMessage = item.nickname === nickname;
-          console.log(item);
           return (
             <div
               key={index}
