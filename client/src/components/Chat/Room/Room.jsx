@@ -15,13 +15,11 @@ const Room = () => {
 
   useEffect(() => {
     socket.on('enterRoom', (message, countPeople) => {
-      console.log('enterRoom', countPeople);
       setMessageList((prev) => [...prev, message]);
       dispatch(saveCountPeople(countPeople));
     });
 
     socket.on('leftRoom', (message, countPeople) => {
-      console.log('leftRoom', countPeople);
       setMessageList((prev) => [...prev, message]);
       dispatch(saveCountPeople(countPeople));
     });
@@ -66,7 +64,6 @@ const Room = () => {
         ref={messageListContainerRef}
       >
         {messageList?.map((item, index) => {
-          console.log(item.nickname, nickname);
           const isMyMessage = item.nickname === nickname.value;
           return (
             <div
