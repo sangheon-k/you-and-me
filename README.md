@@ -2,6 +2,13 @@
 
 livecam & chat with WebRTC and WebSocket
 
+# Start
+```bash
+cd /client yarn dev
+
+cd /server npm run dev
+```
+
 # Step
 
 1. back-front socket서버 연결
@@ -11,3 +18,7 @@ livecam & chat with WebRTC and WebSocket
 5. 방 만들기
 6. 채팅방 입장시 입장, 퇴장시 방 내부에 알림 메세지 보내기
 7. 채팅방 리스트 메인에서 보여주기
+
+# Issues
+
+[🙏🏻 1차 피드백 보완사항](https://github.com/sangheon-k/you-and-me/issues/4)
