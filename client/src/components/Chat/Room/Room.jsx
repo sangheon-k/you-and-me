@@ -66,7 +66,8 @@ const Room = () => {
         ref={messageListContainerRef}
       >
         {messageList?.map((item, index) => {
-          const isMyMessage = item.nickname === nickname;
+          console.log(item.nickname, nickname);
+          const isMyMessage = item.nickname === nickname.value;
           return (
             <div
               key={index}
@@ -74,7 +75,7 @@ const Room = () => {
                 isMyMessage ? 'items-end' : 'items-start'
               }`}
             >
-              <span>{isMyMessage ? item.nickname.value : item.nickname}</span>
+              <span>{item.nickname}</span>
               <span
                 className={`max-w-xs px-4 py-2 rounded-lg break-all ${
                   isMyMessage
