@@ -54,16 +54,16 @@ const Room = () => {
   };
 
   return (
-    <>
-      <div className='bg-white rounded-xl min-w-[360px] pr-2'>
-        <h2 className='flex justify-between px-6 pt-6 pb-4 text-xl font-bold shadow-sm'>
-          <span>Chatting Room : {roomName}</span>
-          <span>{totalPeopleNum}</span>
-        </h2>
-        <div
-          className='flex flex-col overflow-y-auto space-y-3 h-[600px] my-6 px-6 pt-4 scrollbar-none'
-          ref={messageListContainerRef}
-        >
+    <div className='flex flex-col h-full'>
+      <h2 className='flex justify-between px-6 pt-6 pb-4 text-xl font-bold bg-white shadow-sm'>
+        <span>Chatting Room : {roomName}</span>
+        <span>{totalPeopleNum}</span>
+      </h2>
+      <div
+        className='h-full py-3 overflow-hidden overflow-y-auto scrollbar-none'
+        ref={messageListContainerRef}
+      >
+        <div className='space-y-3'>
           {messageList?.map((item, index) => {
             const isMyMessage = item.nickname === nickname.value;
             return (
@@ -88,7 +88,7 @@ const Room = () => {
           })}
         </div>
       </div>
-      <div className='absolute bottom-0 p-6 bg-white'>
+      <div className='w-full p-6 bg-white'>
         <form
           action='#none'
           className='flex gap-4'
@@ -116,7 +116,7 @@ const Room = () => {
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

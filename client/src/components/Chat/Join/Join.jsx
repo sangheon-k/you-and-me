@@ -26,11 +26,13 @@ export default function Join() {
   };
 
   return (
-    <div className='bg-white rounded-xl min-w-[360px] p-6'>
-      <form action='' onSubmit={handleSubmit} className='pt-6 text-center'>
-        <FormNickName />
-        <FormEnterRoom />
-      </form>
+    <div className='flex items-center justify-center h-full'>
+      <div className='bg-white rounded-xl min-w-[360px] p-6'>
+        <form action='' onSubmit={handleSubmit} className='pt-6 text-center'>
+          <FormNickName />
+          <FormEnterRoom />
+        </form>
+      </div>
     </div>
   );
 }
