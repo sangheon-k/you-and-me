@@ -54,37 +54,39 @@ const Room = () => {
   };
 
   return (
-    <div className='bg-white rounded-xl min-w-[360px] p-4'>
-      <h2 className='flex justify-between px-6 pt-6 pb-4 text-xl font-bold shadow-sm'>
-        <span>Chatting Room : {roomName}</span>
-        <span>{totalPeopleNum}</span>
-      </h2>
-      <div
-        className='flex flex-col overflow-y-auto space-y-3 h-[600px] mb-4 px-6 pt-4'
-        ref={messageListContainerRef}
-      >
-        {messageList?.map((item, index) => {
-          const isMyMessage = item.nickname === nickname.value;
-          return (
-            <div
-              key={index}
-              className={`flex flex-col ${
-                isMyMessage ? 'items-end' : 'items-start'
-              }`}
-            >
-              <span>{item.nickname}</span>
-              <span
-                className={`max-w-xs px-4 py-2 rounded-lg break-all ${
-                  isMyMessage
-                    ? 'rounded-br-none bg-blue-600 text-white'
-                    : 'rounded-bl-none bg-gray-300 text-gray-600'
+    <>
+      <div className='bg-white rounded-xl min-w-[360px] pr-2'>
+        <h2 className='flex justify-between px-6 pt-6 pb-4 text-xl font-bold shadow-sm'>
+          <span>Chatting Room : {roomName}</span>
+          <span>{totalPeopleNum}</span>
+        </h2>
+        <div
+          className='flex flex-col overflow-y-auto space-y-3 h-[600px] my-6 px-6 pt-4 scrollbar-none'
+          ref={messageListContainerRef}
+        >
+          {messageList?.map((item, index) => {
+            const isMyMessage = item.nickname === nickname.value;
+            return (
+              <div
+                key={index}
+                className={`flex flex-col ${
+                  isMyMessage ? 'items-end' : 'items-start'
                 }`}
               >
-                {item.message}
-              </span>
-            </div>
-          );
-        })}
+                <span>{item.nickname}</span>
+                <span
+                  className={`max-w-xs px-4 py-2 rounded-lg break-all ${
+                    isMyMessage
+                      ? 'rounded-br-none bg-blue-600 text-white'
+                      : 'rounded-bl-none bg-gray-300 text-gray-600'
+                  }`}
+                >
+                  {item.message}
+                </span>
+              </div>
+            );
+          })}
+        </div>
       </div>
       <div className='absolute bottom-0 p-6 bg-white'>
         <form
@@ -114,7 +116,7 @@ const Room = () => {
           </button>
         </form>
       </div>
-    </div>
+    </>
   );
 };
 

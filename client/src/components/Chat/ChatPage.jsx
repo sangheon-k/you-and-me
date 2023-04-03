@@ -5,7 +5,11 @@ import Join from './Join/Join';
 
 const ChatPage = () => {
   const isEnteredRoom = useSelector((state) => state.room.isEnteredRoom);
-  return <>{!isEnteredRoom ? <Join /> : <Room />}</>;
+  return (
+    <div className='flex items-center justify-center h-full'>
+      {!isEnteredRoom ? <Join /> : <Room />}
+    </div>
+  );
 };
 
 export default ChatPage;

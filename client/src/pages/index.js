@@ -3,9 +3,9 @@ import ChatPage from '@/src/components/Chat/ChatPage';
 
 const HomePage = () => {
   return (
-    <div className='flex items-center justify-center h-full bg-slate-100'>
+    <main className='w-full h-full overflow-hidden bg-slate-100'>
       <ChatPage />
-    </div>
+    </main>
   );
 };
 
