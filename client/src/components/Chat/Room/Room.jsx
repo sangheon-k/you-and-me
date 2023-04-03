@@ -54,7 +54,7 @@ const Room = () => {
   };
 
   return (
-    <div className=''>
+    <div className='bg-white rounded-xl min-w-[360px] p-4'>
       <h2 className='flex justify-between px-6 pt-6 pb-4 text-xl font-bold shadow-sm'>
         <span>Chatting Room : {roomName}</span>
         <span>{totalPeopleNum}</span>

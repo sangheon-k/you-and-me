@@ -32,7 +32,7 @@ const FormNickName = () => {
   };
 
   return (
-    <div className='flex items-center justify-between w-full gap-6'>
+    <div className='flex justify-between w-full gap-6'>
       {isSavedNickName ? (
         <strong>
           nickname :{' '}
