@@ -108,7 +108,7 @@ const Room = () => {
           />
           <button
             type='submit'
-            className='block px-6 py-3 text-white bg-blue-500 rounded-lg shadow-lg disabled:bg-gray-300 disabled:shadow-none md:inline-block'
+            className='block px-6 py-3 text-white bg-blue-500 rounded-lg shadow-lg disabled:bg-gray-300 disabled:shadow-none '
             onClick={handleSubmit}
             disabled={message === ''}
           >

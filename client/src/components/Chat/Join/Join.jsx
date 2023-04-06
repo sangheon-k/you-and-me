@@ -27,8 +27,12 @@ export default function Join() {
 
   return (
     <div className='flex items-center justify-center h-full'>
-      <div className='bg-white rounded-xl min-w-[360px] p-6'>
-        <form action='' onSubmit={handleSubmit} className='pt-6 text-center'>
+      <div className='p-6 bg-white rounded-xl md:min-w-[380px]'>
+        <form
+          action=''
+          onSubmit={handleSubmit}
+          className='flex flex-col p-2 space-y-8 text-center md:space-y-6'
+        >
           <FormNickName />
           <FormEnterRoom />
         </form>

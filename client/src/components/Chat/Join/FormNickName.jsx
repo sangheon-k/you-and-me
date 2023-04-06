@@ -32,15 +32,9 @@ const FormNickName = () => {
   };
 
   return (
-    <div className='flex justify-between w-full gap-6'>
-      {isSavedNickName ? (
-        <strong>
-          nickname :{' '}
-          <span className='ml-1 py-3 px-4 rounded-md border border-[#e0e0e0] bg-white  text-base font-medium text-[#6B7280] outline-none focus:border-blue-500 focus:shadow-md'>
-            {nickname}
-          </span>
-        </strong>
-      ) : (
+    <div className='text-left'>
+      <label className='font-bold'>nickname</label>
+      <div className='flex flex-col mt-2 gap-4 md:items-center md:flex-row md:justify-between min-h-[50px]'>
         <input
           type='text'
           name='nickname'
@@ -49,17 +43,22 @@ const FormNickName = () => {
           onKeyDown={handleNickNameKeyDown}
           value={nickname}
           ref={nickNameRef}
-          className='py-3 px-4 rounded-md border border-[#e0e0e0] bg-white  text-base font-medium text-[#6B7280] outline-none focus:border-blue-500 focus:shadow-md'
+          className={`py-3 px-4 rounded-md border border-[#e0e0e0] bg-white text-base font-medium  text-[#6B7280] outline-none ${
+            isSavedNickName ? '' : 'focus:border-blue-500 focus:shadow-md'
+          }`}
           required
+          readOnly={isSavedNickName}
         />
-      )}
-      <button
-        type='button'
-        onClick={toggleSaveNickName}
-        className='block px-6 py-3 text-white bg-blue-500 rounded-lg shadow-lg md:inline-block'
-      >
-        {isSavedNickName ? 'edit' : 'save'}
-      </button>
+        <button
+          type='button'
+          onClick={toggleSaveNickName}
+          className={`px-6 py-3 text-white rounded-lg ${
+            isSavedNickName ? 'bg-gray-400' : 'bg-blue-500'
+          }`}
+        >
+          {isSavedNickName ? 'edit' : 'save'}
+        </button>
+      </div>
     </div>
   );
 };
