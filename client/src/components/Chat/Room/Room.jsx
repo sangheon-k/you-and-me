@@ -7,6 +7,7 @@ const Room = () => {
   const dispatch = useDispatch();
   const [message, setMessage] = useState('');
   const [messageList, setMessageList] = useState([]);
+  const messageInputRef = useRef();
   const messageListContainerRef = useRef();
   const roomName = useSelector((state) => state.room.roomname);
   const nickname = useSelector((state) => state.room.nickname);
@@ -39,6 +40,10 @@ const Room = () => {
     messageListContainerRef.current.scrollTop =
       messageListContainerRef.current.scrollHeight;
   }, [messageList]);
+
+  useEffect(() => {
+    messageInputRef.current.focus();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -89,11 +94,7 @@ const Room = () => {
         </div>
       </div>
       <div className='w-full p-6 bg-white'>
-        <form
-          action='#none'
-          className='flex gap-4'
-          onSubmit={(e) => e.preventDefault()}
-        >
+        <div className='flex gap-4'>
           <input
             type='text'
             name='message'
@@ -105,6 +106,7 @@ const Room = () => {
               handleSubmit(e)
             }
             value={message}
+            ref={messageInputRef}
           />
           <button
             type='submit'
@@ -114,7 +116,7 @@ const Room = () => {
           >
             send
           </button>
-        </form>
+        </div>
       </div>
     </div>
   );
