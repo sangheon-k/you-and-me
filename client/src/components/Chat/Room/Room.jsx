@@ -65,7 +65,7 @@ const Room = () => {
         <span>{totalPeopleNum}</span>
       </h2>
       <div
-        className='h-full py-3 overflow-hidden overflow-y-auto scrollbar-none'
+        className='h-full px-4 py-3 overflow-hidden overflow-y-auto scrollbar-none'
         ref={messageListContainerRef}
       >
         <div className='space-y-3'>
